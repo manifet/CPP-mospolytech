@@ -1,48 +1,54 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cmath>
 #include <iomanip>
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
 int main() {
-
+    
     double radius;
     std::cout << "Введите радиус окружности: ";
     std::cin >> radius;
 
-    double circumference = 2 * M_PI * radius;
-    std::cout << "Длина окружности: " << std::fixed << std::setprecision(3) 
-              << circumference << std::endl;
+    double circumference = 2 * 3.14 * radius;
+    
+    std::cout << "Длина окружности: " << std::fixed << std::setprecision(3) << circumference << std::endl;
 
-    std::string input;
-    std::ofstream outFile("text.txt", std::ios::app);
+    std::string filePath = "3.txt"; 
+    std::string userInput;
 
     while (true) {
-        std::cout << "Введите произвольную строку (или 'read', 'erase', 'exit'): ";
-        std::cin.ignore();
-        std::getline(std::cin, input);
+        std::cout << "Введите произвольную строку (или команды read, erase, exit): ";
+        std::cin >> userInput;
 
-        if (input == "read") {
-            std::ifstream inFile("text.txt");
-            std::string line;
-            std::cout << "Содержимое файла:" << std::endl;
-            while (std::getline(inFile, line)) {
-                std::cout << line << std::endl;
+        if (userInput == "read") {
+            std::ifstream file(filePath);
+            if (file.is_open()) {
+                std::string line;
+                std::cout << "Содержимое файла:" << std::endl;
+                while (getline(file, line)) {
+                    std::cout << line << std::endl;
+                }
+                file.close();
+            } else {
+                std::cout << "Файл не найден или не может быть открыт." << std::endl;
             }
-        } else if (input == "erase") {
-            std::ofstream outFile("text.txt", std::ios::trunc);
-            outFile.close();
+        } else if (userInput == "erase") {
+            std::ofstream file(filePath, std::ios::trunc);
+            file.close();
             std::cout << "Файл очищен." << std::endl;
-        } else if (input == "exit") {
+        } else if (userInput == "exit") {
+            std::cout << "Выход из программы." << std::endl;
             break;
         } else {
-            outFile << input << std::endl;
+            std::ofstream file(filePath, std::ios::app);
+            if (file.is_open()) {
+                file << userInput << std::endl;
+                file.close();
+            } else {
+                std::cout << "Ошибка при записи в файл." << std::endl;
+            }
         }
     }
-
-    outFile.close();
     return 0;
 }
