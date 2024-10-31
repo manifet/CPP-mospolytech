@@ -5,14 +5,13 @@
 #include <string>
 
 struct Player {
-    int id; // Уникальный идентификатор
-    std::string login; // Логин
-    std::string password; // Пароль
+    int id; 
+    std::string login; 
+    std::string password; 
 
-    // Метод для вывода данных игрока
     void printInfo() const {
         std::cout << "Player ID: " << id << ", Login: " << login << ", Password: " << password << std::endl;
     }
 };
 
-#endif // PLAYER_H
+#endif 

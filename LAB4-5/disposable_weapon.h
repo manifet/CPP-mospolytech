@@ -5,14 +5,13 @@
 
 class DisposableWeapon : public Weapon {
 private:
-    bool used; // Флаг использования оружия
+    bool used;
 
 public:
     DisposableWeapon(std::string weaponName, int weaponDamage, float weaponWeight, WeaponType weaponType);
-    DisposableWeapon(); // Конструктор без параметров
+    DisposableWeapon(); 
 
-    // Реализация метода Attack
     void Attack() override;
 };
 
-#endif // DISPOSABLE_WEAPON_H
+#endif
